@@ -14,7 +14,7 @@
 		6CEFADA32DCF46D1007B14D7 /* Exceptions for "HYUNDAICARDDIVE_iOS" folder in "HYUNDAICARDDIVE_iOS" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				Info.plist,
+				Global/Info.plist,
 			);
 			target = 6CEFAD902DCF46D0007B14D7 /* HYUNDAICARDDIVE_iOS */;
 		};
