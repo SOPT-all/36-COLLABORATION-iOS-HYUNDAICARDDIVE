@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "logo_hdc_black.png",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

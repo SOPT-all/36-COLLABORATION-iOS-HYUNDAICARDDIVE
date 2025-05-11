@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "ios_card_introduce_banner.png",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

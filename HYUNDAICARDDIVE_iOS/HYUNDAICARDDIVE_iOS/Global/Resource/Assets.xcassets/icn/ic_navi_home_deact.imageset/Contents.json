@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "ic_navi_home_deact.png",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

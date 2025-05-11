@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "ic_spaceDetail_book.png",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
