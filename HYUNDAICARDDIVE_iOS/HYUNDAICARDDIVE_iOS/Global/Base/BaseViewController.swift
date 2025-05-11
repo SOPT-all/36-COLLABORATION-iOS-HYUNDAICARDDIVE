@@ -1,0 +1,65 @@
+//
+//  BaseViewController.swift
+//  HYUNDAICARDDIVE_iOS
+//
+//  Created by MaengKim on 5/12/25.
+//
+
+import UIKit
+
+import SnapKit
+
+class BaseViewController: UIViewController {
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        setView()
+        setAction()
+        setDelegate()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        navigationController?.interactivePopGestureRecognizer?.delegate = self
+    }
+    
+    /// 네비게이션 바 등 추가적으로 UI와 관련한 작업
+    func setView() {}
+    
+    /// RootView로부터 액션 설정 (addTarget)
+    func setAction() {}
+    
+    /// RootView 또는 ViewController 자체로부터 Delegate, DateSource 등 설정
+    func setDelegate() {}
+}
+
+extension BaseViewController {
+    
+    /// 화면 터치 시 키보드 내리기
+    func hideKeyboardWhenDidTap() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        tapGesture.cancelsTouchesInView = false
+        view.addGestureRecognizer(tapGesture)
+    }
+    
+    @objc
+    func backButtonDidTap() {
+        navigationController?.popViewController(animated: true)
+    }
+    
+    @objc
+    func dismissKeyboard() {
+        view.endEditing(true)
+    }
+}
+
+// MARK: - UIGestureRecognizerDelegate
+
+extension BaseViewController: UIGestureRecognizerDelegate {
+    
+    /// 뒤로가기 제스쳐 삽입
+    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        return navigationController?.viewControllers.count ?? 0 > 1
+    }
+}
