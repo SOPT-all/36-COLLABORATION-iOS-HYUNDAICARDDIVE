@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "ios_img_spaceDetail3.png",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

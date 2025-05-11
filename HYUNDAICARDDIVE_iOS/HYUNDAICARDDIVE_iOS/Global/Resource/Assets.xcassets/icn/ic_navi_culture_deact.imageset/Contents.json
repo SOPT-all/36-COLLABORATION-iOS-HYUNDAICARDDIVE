@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "ic_navi_culture_deact.png",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

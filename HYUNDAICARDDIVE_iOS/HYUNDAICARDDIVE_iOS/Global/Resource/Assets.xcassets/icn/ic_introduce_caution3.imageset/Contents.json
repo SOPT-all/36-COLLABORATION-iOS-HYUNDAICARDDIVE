@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "ic_introduce_caution3.png",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
