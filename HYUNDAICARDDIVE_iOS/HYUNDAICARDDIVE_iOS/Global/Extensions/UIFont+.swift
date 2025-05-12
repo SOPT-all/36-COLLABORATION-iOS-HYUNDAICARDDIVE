@@ -9,26 +9,26 @@ extension UIFont {
     enum CustomFont {
         private static let scaleRatio: CGFloat = max(Screen.height(1), Screen.width(1))
         
-        case yai_20_22, yai_16_22
-        case ns_32_48_b, ns_16_24_b, ns_14_21_b
-        case ns_22_33_eb
-        case ns_20_30_sb, ns_16_24_sb, ns_14_21_sb, ns_12_18_sb, ns_9_13_sb
-        case ns_16_24_r, ns_14_21_r, ns_12_18_r, ns_11_16_r, ns_10_15_r
-        case ns_13_20_m, ns_12_22_m, ns_12_18_m, ns_11_16_m, ns_10_15_m, ns_10_10_m
+        case yni_20, yni_16
+        case ns_b_32, ns_b_16, ns_b_14
+        case ns_eb_22
+        case ns_sb_20, ns_sb_16, ns_sb_14, ns_sb_12, ns_sb_9
+        case ns_r_16, ns_r_14, ns_r_12, ns_r_11, ns_r_10
+        case ns_m_13, ns_m_12_22, ns_m_12_18, ns_m_11, ns_10_15_m, ns_m_10
         
         var weight: String {
             switch self {
-            case .yai_20_22, .yai_16_22:
+            case .yni_20, .yni_16:
                 "YouandiModern"
-            case .ns_32_48_b, .ns_16_24_b, .ns_14_21_b:
+            case .ns_b_32, .ns_b_16, .ns_b_14:
                 "NotoSansKR-Bold"
-            case .ns_22_33_eb:
+            case .ns_eb_22:
                 "NotoSansKR-ExtraBold"
-            case .ns_20_30_sb, .ns_16_24_sb, .ns_14_21_sb, .ns_12_18_sb, .ns_9_13_sb:
+            case .ns_sb_20, .ns_sb_16, .ns_sb_14, .ns_sb_12, .ns_sb_9:
                 "NotoSansKR-SemiBold"
-            case .ns_16_24_r, .ns_14_21_r, .ns_12_18_r, .ns_11_16_r, .ns_10_15_r:
+            case .ns_r_16, .ns_r_14, .ns_r_12, .ns_r_11, .ns_r_10:
                 "NotoSansKR-Regualr"
-            case .ns_13_20_m, .ns_12_22_m, .ns_12_18_m, .ns_11_16_m, .ns_10_15_m, .ns_10_10_m:
+            case .ns_m_13, .ns_m_12_22, .ns_m_12_18, .ns_m_11, .ns_10_15_m, .ns_m_10:
                 "NotoSansKR-Medium"
             }
         }
@@ -39,50 +39,50 @@ extension UIFont {
         
         private var defaultSize: CGFloat {
             switch self {
-            case .ns_32_48_b: 32
-            case .ns_22_33_eb: 22
-            case .yai_20_22, .ns_20_30_sb: 20
-            case .yai_16_22, .ns_16_24_b, .ns_16_24_sb, .ns_16_24_r: 16
-            case .ns_14_21_b, .ns_14_21_sb, .ns_14_21_r: 14
-            case .ns_13_20_m: 13
-            case .ns_12_18_sb, .ns_12_18_r, .ns_12_22_m, .ns_12_18_m: 12
-            case .ns_11_16_r, .ns_11_16_m: 11
-            case .ns_10_15_r, .ns_10_15_m, .ns_10_10_m: 10
-            case .ns_9_13_sb: 9
+            case .ns_b_32: 32
+            case .ns_eb_22: 22
+            case .yni_20, .ns_sb_20: 20
+            case .yni_16, .ns_b_16, .ns_sb_16, .ns_r_16: 16
+            case .ns_b_14, .ns_sb_14, .ns_r_14: 14
+            case .ns_m_13: 13
+            case .ns_sb_12, .ns_r_12, .ns_m_12_22, .ns_m_12_18: 12
+            case .ns_r_11, .ns_m_11: 11
+            case .ns_r_10, .ns_10_15_m, .ns_m_10: 10
+            case .ns_sb_9: 9
             }
         }
         
         var letterSpacing: CGFloat {
             switch self {
-            case .ns_32_48_b, .ns_22_33_eb, .ns_16_24_b, .ns_16_24_r, .ns_14_21_r, .ns_13_20_m, .ns_11_16_r, .ns_10_15_m, .ns_9_13_sb:
+            case .ns_b_32, .ns_eb_22, .ns_b_16, .ns_r_16, .ns_r_14, .ns_m_13, .ns_r_11, .ns_10_15_m, .ns_sb_9:
                 CGFloat(0) / 100 * size
-            case .ns_12_18_m, .ns_12_18_r:
+            case .ns_m_12_18, .ns_r_12:
                 CGFloat(-0.1) / 100 * size
-            case .ns_16_24_sb:
+            case .ns_sb_16:
                 CGFloat(-0.2) / 100 * size
-            case .yai_20_22, .yai_16_22, .ns_20_30_sb, .ns_14_21_b, .ns_14_21_sb, .ns_12_22_m, .ns_11_16_m, .ns_10_15_r:
+            case .yni_20, .yni_16, .ns_sb_20, .ns_b_14, .ns_sb_14, .ns_m_12_22, .ns_m_11, .ns_r_10:
                 CGFloat(-0.3) / 100 * size
-            case .ns_10_10_m:
+            case .ns_m_10:
                 CGFloat(-0.5) / 100 * size
-            case .ns_12_18_sb:
+            case .ns_sb_12:
                 CGFloat(-0.6) / 100 * size
             }
         }
         
         var lineHeight: CGFloat {
             switch self {
-            case .ns_32_48_b: 48
-            case .ns_22_33_eb: 33
-            case .ns_20_30_sb: 30
-            case .ns_16_24_b, .ns_16_24_sb, .ns_16_24_r: 24
-            case .yai_20_22, .yai_16_22, .ns_12_22_m: 22
-            case .ns_14_21_b, .ns_14_21_sb, .ns_14_21_r: 21
-            case .ns_13_20_m: 20
-            case .ns_12_18_sb, .ns_12_18_r, .ns_12_18_m: 18
-            case .ns_11_16_r, .ns_11_16_m: 16
-            case .ns_10_15_r, .ns_10_15_m: 15
-            case .ns_9_13_sb: 13
-            case .ns_10_10_m: 10
+            case .ns_b_32: 48
+            case .ns_eb_22: 33
+            case .ns_sb_20: 30
+            case .ns_b_16, .ns_sb_16, .ns_r_16: 24
+            case .yni_20, .yni_16, .ns_m_12_22: 22
+            case .ns_b_14, .ns_sb_14, .ns_r_14: 21
+            case .ns_m_13: 20
+            case .ns_sb_12, .ns_r_12, .ns_m_12_18: 18
+            case .ns_r_11, .ns_m_11: 16
+            case .ns_r_10, .ns_10_15_m: 15
+            case .ns_sb_9: 13
+            case .ns_m_10: 10
             }
         }
     }
