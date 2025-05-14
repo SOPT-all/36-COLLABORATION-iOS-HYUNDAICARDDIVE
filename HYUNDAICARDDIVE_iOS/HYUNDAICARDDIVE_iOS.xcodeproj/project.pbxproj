@@ -22,7 +22,6 @@
 				Global/Components/.gitkeep,
 				Global/Enums/.gitkeep,
 				Global/Info.plist,
-				Network/.gitkeep,
 				Presentation/Home/View/.gitkeep,
 				Presentation/Home/ViewController/.gitkeep,
 				Presentation/SpaceCulture/View/.gitkeep,
