@@ -60,27 +60,27 @@ class MainTabBarController: UITabBarController {
         cultureButton.setImage(UIImage(named: "ic_navi_culture_deact"), for: .normal)
         cultureButton.setImage(UIImage(named: "ic_navi_culture_act"), for: .selected)
         profileButton.setImage(UIImage(named: "ic_navi_profile_deact"), for: .normal)
-
+        
         homeButton.addTarget(self, action: #selector(didTapHome), for: .touchUpInside)
         cultureButton.addTarget(self, action: #selector(didTapCulture), for: .touchUpInside)
-
+        
         let buttonSize = CGSize(width: 36, height: 36)
-
+        
         homeButton.snp.makeConstraints {
             $0.top.equalToSuperview().offset(7)
-            $0.leading.equalToSuperview().offset(41)
+            $0.centerX.equalToSuperview().offset(-122)
             $0.size.equalTo(buttonSize)
         }
-
+        
         cultureButton.snp.makeConstraints {
             $0.top.equalToSuperview().offset(7)
             $0.centerX.equalToSuperview()
             $0.size.equalTo(buttonSize)
         }
-
+        
         profileButton.snp.makeConstraints {
             $0.top.equalToSuperview().offset(7)
-            $0.trailing.equalToSuperview().inset(41)
+            $0.centerX.equalToSuperview().offset(122)
             $0.size.equalTo(buttonSize)
         }
     }
@@ -99,4 +99,8 @@ class MainTabBarController: UITabBarController {
         cultureButton.isSelected = index == 1
         profileButton.isSelected = false
     }
+}
+
+#Preview {
+    MainTabBarController()
 }
