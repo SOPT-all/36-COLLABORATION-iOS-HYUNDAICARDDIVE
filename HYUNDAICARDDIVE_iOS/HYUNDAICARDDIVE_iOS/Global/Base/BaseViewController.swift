@@ -20,7 +20,7 @@ class BaseViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
+        
         navigationController?.interactivePopGestureRecognizer?.delegate = self
     }
     
@@ -35,6 +35,24 @@ class BaseViewController: UIViewController {
 }
 
 extension BaseViewController {
+    
+    func setNavigationBar(type: NavigationBarType) {
+        let navigationBarAppearance = NavigationBarType.makeAppearance(type: type)
+        self.navigationController?.navigationBar.standardAppearance = navigationBarAppearance
+        self.navigationController?.navigationBar.scrollEdgeAppearance = navigationBarAppearance
+        
+        if type == .backButton {
+            let backButtonImage = NavigationBarType.makeBackButtonImage()
+            let barButtonItem = UIBarButtonItem(
+                image: backButtonImage,
+                style: .done,
+                target: self,
+                action: #selector(backButtonDidTap)
+            )
+            barButtonItem.tintColor = .black
+            self.navigationItem.leftBarButtonItem = barButtonItem
+        }
+    }
     
     /// 화면 터치 시 키보드 내리기
     func hideKeyboardWhenDidTap() {
