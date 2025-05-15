@@ -27,10 +27,8 @@ final class HomeView: BaseView {
         $0.contentMode = .scaleAspectFit
     }
 
-    private let divider = UILabel().then {
-        $0.text = "|"
-        $0.textColor = .gray5
-        $0.font = .custom(.ns_eb_22)
+    private let divider = UIView().then {
+        $0.backgroundColor = .gray3
     }
 
     private func searchIcon(named: String) -> UIImageView {
@@ -42,6 +40,8 @@ final class HomeView: BaseView {
         return imageView
     }
 
+    private let spacing25_1 = UIView()
+    private let spacing25_2 = UIView()
     private let spacer = UIView()
 
     let stackView = UIStackView().then {
@@ -50,13 +50,19 @@ final class HomeView: BaseView {
         $0.alignment = .center
     }
 
+    let categoryView = CategoryView()
+
     // MARK: - Setup
 
     override func setUI() {
         addSubview(stackView)
+        addSubview(categoryView)
+
         stackView.addArrangedSubviews(
             suggestionButton,
+            spacing25_1,
             divider,
+            spacing25_2,
             recentButton,
             spacer,
             searchIcon(named: "ic_home_search")
@@ -69,8 +75,27 @@ final class HomeView: BaseView {
             $0.top.equalToSuperview().offset(100)
         }
 
+        spacing25_1.snp.makeConstraints {
+            $0.width.equalTo(25)
+        }
+
+        divider.snp.makeConstraints {
+            $0.width.equalTo(1)
+            $0.height.equalTo(18)
+        }
+
+        spacing25_2.snp.makeConstraints {
+            $0.width.equalTo(25)
+        }
+
         spacer.snp.makeConstraints {
             $0.width.equalTo(152)
+        }
+
+        categoryView.snp.makeConstraints {
+            $0.top.equalTo(stackView.snp.bottom).offset(12)
+            $0.leading.trailing.equalToSuperview()
+            $0.height.equalTo(36)
         }
     }
 }
