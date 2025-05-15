@@ -16,6 +16,6 @@ protocol BaseService {
 
 extension BaseService {
     func fetch() async throws -> Response {
-        return try await APIClient.shared.request(api: api, as: Response.self)
+        return try await APIManager.shared.request(api: api, as: Response.self)
     }
 }

@@ -34,7 +34,7 @@ final class APIManager {
         NetworkLogger.logResponse(httpResponse, data)
         
         do {
-            let decoded = try JSONDecoder().decode(BaseResponse<T>.self, from: data)
+            let decoded = try JSONDecoder().decode(BaseResponseBody<T>.self, from: data)
             
             guard decoded.code == "success" else {
                 throw NetworkError.serverMessage(decoded.message ?? "서버 오류 발생")
