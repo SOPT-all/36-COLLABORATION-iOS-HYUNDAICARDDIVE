@@ -23,7 +23,6 @@
 				Global/Components/.gitkeep,
 				Global/Enums/.gitkeep,
 				Global/Info.plist,
-				Network/.gitkeep,
 				Presentation/Home/View/.gitkeep,
 				Presentation/Home/ViewController/.gitkeep,
 				Presentation/SpaceCulture/View/.gitkeep,
@@ -163,6 +162,8 @@
 /* Begin XCBuildConfiguration section */
 		6CEFADA52DCF46D1007B14D7 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = 6CEFAD932DCF46D0007B14D7 /* HYUNDAICARDDIVE_iOS */;
+			baseConfigurationReferenceRelativePath = Config.xcconfig;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
