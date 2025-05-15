@@ -10,7 +10,7 @@ import SnapKit
 import Then
 
 final class HomeView: BaseView {
-
+    
     // MARK: - UI Components
 
     private let suggestionButton = UIButton().then {
@@ -33,14 +33,20 @@ final class HomeView: BaseView {
         $0.font = .custom(.ns_eb_22)
     }
 
-    private let searchIcon = UIImageView().then {
-        $0.image = UIImage(named: "ic_home_search")
-        $0.contentMode = .scaleAspectFit
+    private func searchIcon(named: String) -> UIImageView {
+        let imageView = UIImageView()
+        if let image = UIImage(named: named) {
+            imageView.image = image.resize(targetSize: CGSize(width: 40, height: 40))
+        }
+        imageView.contentMode = .scaleAspectFit
+        return imageView
     }
+
+    private let spacer = UIView()
 
     let stackView = UIStackView().then {
         $0.axis = .horizontal
-        $0.spacing = 3
+        $0.spacing = 0
         $0.alignment = .center
     }
 
@@ -52,7 +58,8 @@ final class HomeView: BaseView {
             suggestionButton,
             divider,
             recentButton,
-            searchIcon
+            spacer,
+            searchIcon(named: "ic_home_search")
         )
     }
 
@@ -61,5 +68,13 @@ final class HomeView: BaseView {
             $0.centerX.equalToSuperview()
             $0.top.equalToSuperview().offset(100)
         }
+
+        spacer.snp.makeConstraints {
+            $0.width.equalTo(152)
+        }
     }
+}
+
+#Preview {
+    HomeView()
 }
