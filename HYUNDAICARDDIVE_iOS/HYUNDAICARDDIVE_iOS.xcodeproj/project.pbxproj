@@ -28,8 +28,6 @@
 				Presentation/Home/ViewController/.gitkeep,
 				Presentation/SpaceCulture/View/.gitkeep,
 				Presentation/SpaceCulture/ViewController/.gitkeep,
-				Presentation/SpaceInfo/View/.gitkeep,
-				Presentation/SpaceInfo/ViewController/.gitkeep,
 			);
 			target = 6CEFAD902DCF46D0007B14D7 /* HYUNDAICARDDIVE_iOS */;
 		};
