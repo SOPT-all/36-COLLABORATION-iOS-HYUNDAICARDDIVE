@@ -19,12 +19,10 @@ final class CategoryChipCell: BaseCollectionViewCell {
         $0.textAlignment = .center
     }
 
-    // MARK: - Override
-
     override func setStyle() {
-        contentView.layer.cornerRadius = 18
         contentView.layer.borderWidth = 1
         contentView.layer.borderColor = UIColor.gray3.cgColor
+        contentView.clipsToBounds = true
     }
 
     override func setUI() {
@@ -35,6 +33,11 @@ final class CategoryChipCell: BaseCollectionViewCell {
         titleLabel.snp.makeConstraints {
             $0.edges.equalToSuperview().inset(UIEdgeInsets(top: 6, left: 12, bottom: 6, right: 12))
         }
+    }
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        contentView.layer.cornerRadius = contentView.frame.height / 2
     }
 
     func configure(with title: String, isSelected: Bool) {
