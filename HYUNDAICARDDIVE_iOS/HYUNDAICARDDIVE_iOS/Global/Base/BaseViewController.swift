@@ -39,6 +39,7 @@ extension BaseViewController {
         let navigationBarAppearance = NavigationBarType.makeAppearance(type: type)
         self.navigationController?.navigationBar.standardAppearance = navigationBarAppearance
         self.navigationController?.navigationBar.scrollEdgeAppearance = navigationBarAppearance
+        self.navigationItem.setHidesBackButton(true, animated: false)
         
         if type == .backButton {
             let backButtonImage = NavigationBarType.makeBackButtonImage()

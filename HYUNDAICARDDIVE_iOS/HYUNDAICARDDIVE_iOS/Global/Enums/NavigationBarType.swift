@@ -14,6 +14,7 @@ extension NavigationBarType {
         let barAppearance = UINavigationBarAppearance()
         barAppearance.backgroundColor = .white
         barAppearance.backgroundImageContentMode = .scaleAspectFit
+        barAppearance.shadowColor = .clear
         
         switch type {
         case .article :

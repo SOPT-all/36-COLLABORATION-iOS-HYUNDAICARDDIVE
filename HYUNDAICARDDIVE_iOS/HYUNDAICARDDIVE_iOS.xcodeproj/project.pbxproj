@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		3A297A2D2DD3B3AD009965B5 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 3A297A2C2DD3B3AD009965B5 /* SnapKit */; };
 		3A297A302DD3B3B9009965B5 /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = 3A297A2F2DD3B3B9009965B5 /* Then */; };
+		6C7211712DD6531D0043723F /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 6C7211702DD6531D0043723F /* Kingfisher */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,6 +51,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6C7211712DD6531D0043723F /* Kingfisher in Frameworks */,
 				3A297A2D2DD3B3AD009965B5 /* SnapKit in Frameworks */,
 				3A297A302DD3B3B9009965B5 /* Then in Frameworks */,
 			);
@@ -96,6 +98,7 @@
 			packageProductDependencies = (
 				3A297A2C2DD3B3AD009965B5 /* SnapKit */,
 				3A297A2F2DD3B3B9009965B5 /* Then */,
+				6C7211702DD6531D0043723F /* Kingfisher */,
 			);
 			productName = HYUNDAICARDDIVE_iOS;
 			productReference = 6CEFAD912DCF46D0007B14D7 /* HYUNDAICARDDIVE_iOS.app */;
@@ -128,6 +131,7 @@
 			packageReferences = (
 				3A297A2B2DD3B3AD009965B5 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				3A297A2E2DD3B3B9009965B5 /* XCRemoteSwiftPackageReference "Then" */,
+				6C72116F2DD6531D0043723F /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 6CEFAD922DCF46D0007B14D7 /* Products */;
@@ -375,6 +379,14 @@
 				minimumVersion = 3.0.0;
 			};
 		};
+		6C72116F2DD6531D0043723F /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 8.3.2;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -387,6 +399,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 3A297A2E2DD3B3B9009965B5 /* XCRemoteSwiftPackageReference "Then" */;
 			productName = Then;
+		};
+		6C7211702DD6531D0043723F /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6C72116F2DD6531D0043723F /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
