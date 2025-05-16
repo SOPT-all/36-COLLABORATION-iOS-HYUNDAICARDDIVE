@@ -13,14 +13,14 @@ final class HomeView: BaseView {
 
     // MARK: - UI Components
 
-    private let suggestionButton = UIButton().then {
+    let suggestionButton = UIButton().then {
         $0.setTitle("추천", for: .normal)
         $0.setTitleColor(.black, for: .normal)
         $0.titleLabel?.font = .custom(.ns_eb_22)
         $0.contentMode = .scaleAspectFit
     }
 
-    private let recentButton = UIButton().then {
+    let recentButton = UIButton().then {
         $0.setTitle("최신", for: .normal)
         $0.setTitleColor(.gray4, for: .normal)
         $0.titleLabel?.font = .custom(.ns_eb_22)
@@ -108,8 +108,14 @@ final class HomeView: BaseView {
             $0.bottom.equalToSuperview()
         }
     }
-}
 
+    // MARK: - Action Style Update
+
+    func updateButtonStyle(isSuggestionSelected: Bool) {
+        suggestionButton.setTitleColor(isSuggestionSelected ? .black : .gray4, for: .normal)
+        recentButton.setTitleColor(isSuggestionSelected ? .gray4 : .black, for: .normal)
+    }
+}
 
 #Preview {
     HomeView()

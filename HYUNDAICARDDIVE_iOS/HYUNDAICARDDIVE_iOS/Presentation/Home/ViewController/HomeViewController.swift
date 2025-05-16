@@ -18,14 +18,26 @@ final class HomeViewController: BaseViewController {
     override func loadView() {
         self.view = rootView
     }
-    
+
     override func setView() {
         rootView.slideView.setData(dummySlides)
+        rootView.suggestionButton.addTarget(self, action: #selector(didTapSuggestion), for: .touchUpInside)
+        rootView.recentButton.addTarget(self, action: #selector(didTapRecent), for: .touchUpInside)
     }
 
     override func setAction() {
         rootView.categoryCollectionView.delegate = self
         rootView.categoryCollectionView.dataSource = self
+    }
+
+    // MARK: - Button Actions
+
+    @objc private func didTapSuggestion() {
+        rootView.updateButtonStyle(isSuggestionSelected: true)
+    }
+
+    @objc private func didTapRecent() {
+        rootView.updateButtonStyle(isSuggestionSelected: false)
     }
 }
 
