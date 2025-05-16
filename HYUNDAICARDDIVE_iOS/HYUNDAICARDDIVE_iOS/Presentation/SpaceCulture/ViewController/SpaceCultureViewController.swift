@@ -19,6 +19,10 @@ final class SpaceCultureViewController: BaseViewController {
         setNavigationBar(type: .spaceAndCulture)
     }
     
+    override func setView() {
+        view.backgroundColor = .white
+    }
+    
     override func setDelegate() {
         spaceCultureView.collectionView.delegate = self
         spaceCultureView.collectionView.dataSource = self
@@ -34,7 +38,7 @@ final class SpaceCultureViewController: BaseViewController {
     
     private func register(_ types: [BaseCollectionViewCell.Type], on collectionView: UICollectionView) {
         types.forEach {
-            collectionView.register($0, forCellWithReuseIdentifier: $0.identifier)
+            collectionView.register($0, forCellWithReuseIdentifier: $0.reuseIdentifier)
         }
     }
     
@@ -113,7 +117,7 @@ extension SpaceCultureViewController: UICollectionViewDataSource {
         }
     }
     
-    private func dequeCell<T: BaseCollectionViewCell & BindableCell>(
+    private func dequeCell<T: BaseCollectionViewCell & DataBindableCell>(
         _ type: T.Type,
         indexPath: IndexPath,
         from collectionView: UICollectionView

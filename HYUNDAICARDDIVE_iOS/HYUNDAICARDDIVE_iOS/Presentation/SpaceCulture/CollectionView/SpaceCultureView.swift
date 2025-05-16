@@ -1,6 +1,6 @@
 import UIKit
 
-final class SpaceCultureView: BaseView {
+final class SpaceCultureView: BaseCollectionReusableView {
     
     lazy var collectionView: UICollectionView = {
         let layout = SpaceCultureCompositionalLayoutFactory().create()
