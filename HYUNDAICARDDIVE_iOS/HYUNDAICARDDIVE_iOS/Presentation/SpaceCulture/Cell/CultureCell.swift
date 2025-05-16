@@ -1,6 +1,6 @@
 import UIKit
 
-final class CultureCell: BaseCollectionViewCell, BindableCell {
+final class CultureCell: BaseCollectionViewCell, DataBindableCell {
     
     private let cultureData = CultureModel.makeData()
     

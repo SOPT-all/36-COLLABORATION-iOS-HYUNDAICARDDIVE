@@ -1,6 +1,6 @@
 import UIKit
 
-final class WhatsOnCell: BaseCollectionViewCell, BindableCell {
+final class WhatsOnCell: BaseCollectionViewCell, DataBindableCell {
     
     private let whatsOnData = WhatsOnModel.makeData()
     

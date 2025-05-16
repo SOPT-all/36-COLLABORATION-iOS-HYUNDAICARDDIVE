@@ -1,3 +1,3 @@
-protocol BindableCell {
+protocol DataBindableCell {
     func dataBind(row: Int)
 }

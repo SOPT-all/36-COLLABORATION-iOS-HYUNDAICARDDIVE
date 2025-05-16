@@ -1,6 +1,6 @@
 import UIKit
 
-final class SpaceCell: BaseCollectionViewCell, BindableCell {
+final class SpaceCell: BaseCollectionViewCell, DataBindableCell {
     
     private let spaceData = SpaceModel.makeData()
     
