@@ -54,7 +54,7 @@ final class SpaceCultureViewController: BaseViewController {
 extension SpaceCultureViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if indexPath.item == 0 {
-            self.navigationController?.pushViewController(SpaceCultureInfoViewController(), animated: false)
+            self.navigationController?.pushViewController(SpaceCultureDetailViewController(), animated: false)
         }
     }
 }
