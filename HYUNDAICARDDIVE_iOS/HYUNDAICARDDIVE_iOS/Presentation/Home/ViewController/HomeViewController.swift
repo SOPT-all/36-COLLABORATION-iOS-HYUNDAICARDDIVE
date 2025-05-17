@@ -18,6 +18,11 @@ final class HomeViewController: BaseViewController {
     override func loadView() {
         self.view = rootView
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setNavigationBar(type: .article)
+    }
 
     override func setView() {
         rootView.slideView.setData(dummySlides)

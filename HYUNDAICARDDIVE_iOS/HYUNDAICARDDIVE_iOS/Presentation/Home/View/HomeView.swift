@@ -81,7 +81,7 @@ final class HomeView: BaseView {
 
     override func setLayout() {
         stackView.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(0)
+            $0.top.equalTo(safeAreaLayoutGuide.snp.top).inset(10)
             $0.leading.equalToSuperview().offset(30)
             $0.trailing.lessThanOrEqualTo(searchImageView.snp.leading).offset(-8)
         }
