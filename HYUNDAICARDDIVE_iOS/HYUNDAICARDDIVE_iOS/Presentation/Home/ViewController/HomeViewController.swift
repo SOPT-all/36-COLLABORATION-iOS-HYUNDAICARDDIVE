@@ -6,19 +6,40 @@
 //
 
 import UIKit
+import SnapKit
+import Then
 
 final class HomeViewController: BaseViewController {
+
+    // MARK: - Properties
 
     private let rootView = HomeView()
     private let categories = ["전체", "디자인·아트", "건축·인테리어", "여행", "음악", "쿠킹·고메", "스타일", "테크", "스페셜"]
     private var selectedIndex = 0
 
-    // MARK: - Life Cycle
+    private let floatingButton = UIButton().then {
+        let resizedImage = UIImage(named: "ic_home_align1")?.resize(targetSize: CGSize(width: 40, height: 40))
+        $0.setImage(resizedImage, for: .normal)
+        $0.backgroundColor = .white
+        $0.layer.cornerRadius = 28
+        $0.clipsToBounds = false
+        $0.layer.shadowColor = UIColor.black.cgColor
+        $0.layer.shadowOpacity = 0.1
+        $0.layer.shadowOffset = CGSize(width: 1, height: 2)
+        $0.layer.shadowRadius = 4
+    }
+
+    // MARK: - Lifecycle
 
     override func loadView() {
         self.view = rootView
     }
-    
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setupFloatingButton()
+    }
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setNavigationBar(type: .article)
@@ -35,6 +56,19 @@ final class HomeViewController: BaseViewController {
         rootView.categoryCollectionView.dataSource = self
     }
 
+    // MARK: - Setup Floating Button
+
+    private func setupFloatingButton() {
+        view.addSubview(floatingButton)
+        floatingButton.snp.makeConstraints {
+            $0.width.height.equalTo(56)
+            $0.trailing.equalToSuperview().inset(20)
+            $0.bottom.equalToSuperview().inset(98)
+        }
+
+        floatingButton.addTarget(self, action: #selector(didTapFloatingButton), for: .touchUpInside)
+    }
+
     // MARK: - Button Actions
 
     @objc private func didTapSuggestion() {
@@ -43,6 +77,14 @@ final class HomeViewController: BaseViewController {
 
     @objc private func didTapRecent() {
         rootView.updateButtonStyle(isSuggestionSelected: false)
+    }
+
+    @objc private func didTapFloatingButton() {
+        floatingButton.isSelected.toggle()
+
+        let imageName = floatingButton.isSelected ? "ic_home_align2" : "ic_home_align1"
+        let resizedImage = UIImage(named: imageName)?.resize(targetSize: CGSize(width: 40, height: 40))
+        floatingButton.setImage(resizedImage, for: .normal)
     }
 }
 
@@ -88,7 +130,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
     }
 }
 
-
 #Preview {
     HomeViewController()
 }
+

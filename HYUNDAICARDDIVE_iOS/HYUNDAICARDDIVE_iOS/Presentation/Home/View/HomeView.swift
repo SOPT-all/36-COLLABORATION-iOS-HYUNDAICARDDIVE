@@ -59,6 +59,10 @@ final class HomeView: BaseView {
         $0.backgroundColor = .clear
         $0.register(CategoryChipCell.self, forCellWithReuseIdentifier: CategoryChipCell.reuseIdentifier)
     }
+    
+    let switchButton = UIButton().then {
+        $0.contentMode = .scaleAspectFit
+    }
 
     let slideView = HomeSlideView()
 
@@ -69,6 +73,7 @@ final class HomeView: BaseView {
         addSubview(searchImageView)
         addSubview(categoryCollectionView)
         addSubview(slideView)
+        addSubview(switchButton)
 
         stackView.addArrangedSubviews(
             suggestionButton,
