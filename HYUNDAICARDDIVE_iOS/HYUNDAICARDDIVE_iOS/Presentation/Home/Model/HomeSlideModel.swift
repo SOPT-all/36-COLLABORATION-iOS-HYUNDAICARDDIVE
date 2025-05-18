@@ -52,4 +52,10 @@ let dummySlides: [HomeSlideModel] = [
         title: "남다른\n쇼핑",
         subtitle: "집처럼 친근한 브랜드 공간 공간 탐험 3"
     ),
+    HomeSlideModel(
+        imageUrl: "ios_img_contents_big6",
+        category: "쿠킹·고메",
+        title: "여름\n한입",
+        subtitle: "[맛집 모음zip] 지역별 특별한 빙수집 8"
+    )
 ]
