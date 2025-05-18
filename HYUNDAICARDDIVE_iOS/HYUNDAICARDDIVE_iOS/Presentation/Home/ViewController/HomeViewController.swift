@@ -16,6 +16,10 @@ final class HomeViewController: BaseViewController {
     private let rootView = HomeView()
     private let categories = ["전체", "디자인·아트", "건축·인테리어", "여행", "음악", "쿠킹·고메", "스타일", "테크", "스페셜"]
     private var selectedIndex = 0
+    private var isCardViewShown = false
+
+    private let slideView = HomeSlideView()
+    private let cardView = HomeCardView()
 
     private let floatingButton = UIButton().then {
         let resizedImage = UIImage(named: "ic_home_align1")?.resize(targetSize: CGSize(width: 40, height: 40))
@@ -38,6 +42,7 @@ final class HomeViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupFloatingButton()
+        showInitialSlideView()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -46,7 +51,6 @@ final class HomeViewController: BaseViewController {
     }
 
     override func setView() {
-        rootView.slideView.setData(dummySlides)
         rootView.suggestionButton.addTarget(self, action: #selector(didTapSuggestion), for: .touchUpInside)
         rootView.recentButton.addTarget(self, action: #selector(didTapRecent), for: .touchUpInside)
     }
@@ -56,7 +60,7 @@ final class HomeViewController: BaseViewController {
         rootView.categoryCollectionView.dataSource = self
     }
 
-    // MARK: - Setup Floating Button
+    // MARK: - Setup Views
 
     private func setupFloatingButton() {
         view.addSubview(floatingButton)
@@ -69,7 +73,23 @@ final class HomeViewController: BaseViewController {
         floatingButton.addTarget(self, action: #selector(didTapFloatingButton), for: .touchUpInside)
     }
 
-    // MARK: - Button Actions
+    private func showInitialSlideView() {
+        rootView.contentContainer.addSubview(slideView)
+        slideView.setData(dummySlides)
+        slideView.snp.makeConstraints { $0.edges.equalToSuperview() }
+    }
+
+    private func showCardView() {
+        rootView.contentContainer.addSubview(cardView)
+        cardView.setData(dummyCards)
+        cardView.snp.makeConstraints { $0.edges.equalToSuperview() }
+    }
+
+    private func clearCurrentContentView() {
+        rootView.contentContainer.subviews.forEach { $0.removeFromSuperview() }
+    }
+
+    // MARK: - Actions
 
     @objc private func didTapSuggestion() {
         rootView.updateButtonStyle(isSuggestionSelected: true)
@@ -80,11 +100,18 @@ final class HomeViewController: BaseViewController {
     }
 
     @objc private func didTapFloatingButton() {
-        floatingButton.isSelected.toggle()
+        isCardViewShown.toggle()
 
-        let imageName = floatingButton.isSelected ? "ic_home_align2" : "ic_home_align1"
+        let imageName = isCardViewShown ? "ic_home_align2" : "ic_home_align1"
         let resizedImage = UIImage(named: imageName)?.resize(targetSize: CGSize(width: 40, height: 40))
         floatingButton.setImage(resizedImage, for: .normal)
+
+        clearCurrentContentView()
+        if isCardViewShown {
+            showCardView()
+        } else {
+            showInitialSlideView()
+        }
     }
 }
 
@@ -133,4 +160,3 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
 #Preview {
     HomeViewController()
 }
-
