@@ -11,7 +11,11 @@ import Then
 
 final class CategoryChipCell: BaseCollectionViewCell {
 
+    // MARK: - Static
+
     static let reuseIdentifier = "CategoryChipCell"
+
+    // MARK: - UI
 
     private let titleLabel = UILabel().then {
         $0.font = .custom(.ns_sb_12)
@@ -19,10 +23,13 @@ final class CategoryChipCell: BaseCollectionViewCell {
         $0.textAlignment = .center
     }
 
+    // MARK: - Override
+
     override func setStyle() {
         contentView.layer.borderWidth = 1
         contentView.layer.borderColor = UIColor.gray3.cgColor
         contentView.clipsToBounds = true
+        contentView.layer.cornerRadius = 18 // ← layoutSubviews → setStyle로 이동
     }
 
     override func setUI() {
@@ -35,10 +42,7 @@ final class CategoryChipCell: BaseCollectionViewCell {
         }
     }
 
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        contentView.layer.cornerRadius = contentView.frame.height / 2
-    }
+    // MARK: - Configure
 
     func configure(with title: String, isSelected: Bool) {
         titleLabel.text = title

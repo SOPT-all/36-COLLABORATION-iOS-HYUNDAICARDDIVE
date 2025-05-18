@@ -13,38 +13,14 @@ final class HomeView: BaseView {
 
     // MARK: - UI Components
 
-    let suggestionButton = UIButton().then {
-        $0.setTitle("추천", for: .normal)
-        $0.setTitleColor(.black, for: .normal)
-        $0.titleLabel?.font = .custom(.ns_eb_22)
-        $0.contentMode = .scaleAspectFit
-    }
-
-    let recentButton = UIButton().then {
-        $0.setTitle("최신", for: .normal)
-        $0.setTitleColor(.gray4, for: .normal)
-        $0.titleLabel?.font = .custom(.ns_eb_22)
-        $0.contentMode = .scaleAspectFit
-    }
-
-    private let divider = UIView().then {
-        $0.backgroundColor = .gray3
-    }
-
+    let suggestionButton = UIButton()
+    let recentButton = UIButton()
+    private let divider = UIView()
     private let spacing25_1 = UIView()
     private let spacing25_2 = UIView()
-
-    private let stackView = UIStackView().then {
-        $0.axis = .horizontal
-        $0.spacing = 0
-        $0.alignment = .center
-    }
-
-    private let searchImageView = UIImageView().then {
-        $0.contentMode = .scaleAspectFit
-        $0.image = UIImage(named: "ic_home_search")?.resize(targetSize: CGSize(width: 40, height: 40))
-    }
-
+    private let stackView = UIStackView()
+    private let searchImageView = UIImageView()
+    
     let categoryCollectionView = UICollectionView(
         frame: .zero,
         collectionViewLayout: {
@@ -54,26 +30,21 @@ final class HomeView: BaseView {
             layout.sectionInset = UIEdgeInsets(top: 0, left: 30, bottom: 0, right: 30)
             return layout
         }()
-    ).then {
-        $0.showsHorizontalScrollIndicator = false
-        $0.backgroundColor = .clear
-        $0.register(CategoryChipCell.self, forCellWithReuseIdentifier: CategoryChipCell.reuseIdentifier)
-    }
-    
-    let switchButton = UIButton().then {
-        $0.contentMode = .scaleAspectFit
-    }
+    )
 
+    let switchButton = UIButton()
     let slideView = HomeSlideView()
 
     // MARK: - Setup
 
     override func setUI() {
-        addSubview(stackView)
-        addSubview(searchImageView)
-        addSubview(categoryCollectionView)
-        addSubview(slideView)
-        addSubview(switchButton)
+        addSubviews(
+            stackView,
+            searchImageView,
+            categoryCollectionView,
+            slideView,
+            switchButton
+        )
 
         stackView.addArrangedSubviews(
             suggestionButton,
@@ -82,6 +53,43 @@ final class HomeView: BaseView {
             spacing25_2,
             recentButton
         )
+    }
+
+    override func setStyle() {
+        suggestionButton.do {
+            $0.setTitle("추천", for: .normal)
+            $0.setTitleColor(.black, for: .normal)
+            $0.titleLabel?.font = .custom(.ns_eb_22)
+            $0.contentMode = .scaleAspectFit
+        }
+
+        recentButton.do {
+            $0.setTitle("최신", for: .normal)
+            $0.setTitleColor(.gray4, for: .normal)
+            $0.titleLabel?.font = .custom(.ns_eb_22)
+            $0.contentMode = .scaleAspectFit
+        }
+
+        divider.backgroundColor = .gray3
+
+        stackView.do {
+            $0.axis = .horizontal
+            $0.spacing = 0
+            $0.alignment = .center
+        }
+
+        searchImageView.do {
+            $0.contentMode = .scaleAspectFit
+            $0.image = UIImage(named: "ic_home_search")?.resize(targetSize: CGSize(width: 40, height: 40))
+        }
+
+        categoryCollectionView.do {
+            $0.showsHorizontalScrollIndicator = false
+            $0.backgroundColor = .clear
+            $0.register(CategoryChipCell.self, forCellWithReuseIdentifier: CategoryChipCell.reuseIdentifier)
+        }
+
+        switchButton.contentMode = .scaleAspectFit
     }
 
     override func setLayout() {
@@ -120,8 +128,4 @@ final class HomeView: BaseView {
         suggestionButton.setTitleColor(isSuggestionSelected ? .black : .gray4, for: .normal)
         recentButton.setTitleColor(isSuggestionSelected ? .gray4 : .black, for: .normal)
     }
-}
-
-#Preview {
-    HomeView()
 }

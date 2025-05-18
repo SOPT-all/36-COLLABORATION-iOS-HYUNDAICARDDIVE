@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 import Then
 
-final class HomeSlideView: UIView, UICollectionViewDelegate {
+final class HomeSlideView: BaseView, UICollectionViewDelegate {
 
     // MARK: - Properties
 
@@ -28,27 +28,31 @@ final class HomeSlideView: UIView, UICollectionViewDelegate {
             layout.sectionInset = UIEdgeInsets(top: 0, left: 30, bottom: 0, right: 30)
             return layout
         }()
-    ).then {
-        $0.showsVerticalScrollIndicator = false
-        $0.register(HomeSlideCell.self, forCellWithReuseIdentifier: "HomeSlideCell")
-        $0.isPagingEnabled = false
+    )
+
+    // MARK: - Setup
+
+    override func setStyle() {
+        collectionView.do {
+            $0.showsVerticalScrollIndicator = false
+            $0.isPagingEnabled = false
+            $0.register(HomeSlideCell.self, forCellWithReuseIdentifier: "HomeSlideCell")
+            $0.delegate = self
+            $0.dataSource = self
+        }
     }
 
-    // MARK: - Init
-
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    override func setUI() {
         addSubview(collectionView)
-        collectionView.delegate = self
-        collectionView.dataSource = self
-        collectionView.snp.makeConstraints { $0.edges.equalToSuperview() }
     }
 
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    override func setLayout() {
+        collectionView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
     }
 
-    // MARK: - Data
+    // MARK: - Data Binding
 
     func setData(_ data: [HomeSlideModel]) {
         originalSlides = data
@@ -76,7 +80,9 @@ extension HomeSlideView: UICollectionViewDataSource {
         guard let cell = collectionView.dequeueReusableCell(
             withReuseIdentifier: "HomeSlideCell",
             for: indexPath
-        ) as? HomeSlideCell else { return UICollectionViewCell() }
+        ) as? HomeSlideCell else {
+            return UICollectionViewCell()
+        }
         cell.configure(with: infiniteSlides[indexPath.item])
         return cell
     }
@@ -98,10 +104,4 @@ extension HomeSlideView: UIScrollViewDelegate {
             collectionView.scrollToItem(at: IndexPath(item: middle, section: 0), at: .top, animated: false)
         }
     }
-}
-
-#Preview {
-    let view = HomeSlideView()
-    view.setData(dummySlides)
-    return view
 }

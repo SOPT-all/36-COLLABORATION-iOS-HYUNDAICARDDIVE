@@ -22,12 +22,16 @@ final class CategoryView: BaseView {
             layout.sectionInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
             return layout
         }()
-    ).then {
-        $0.showsHorizontalScrollIndicator = false
-        $0.backgroundColor = .clear
-    }
+    )
 
     // MARK: - Setup
+
+    override func setStyle() {
+        collectionView.do {
+            $0.showsHorizontalScrollIndicator = false
+            $0.backgroundColor = .clear
+        }
+    }
 
     override func setUI() {
         addSubview(collectionView)

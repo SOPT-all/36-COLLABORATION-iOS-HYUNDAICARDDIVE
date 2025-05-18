@@ -54,7 +54,7 @@ final class HomeSlideCell: BaseCollectionViewCell {
         }
     }
 
-    // MARK: - Setup
+    // MARK: - Override
 
     override func setUI() {
         contentView.addSubviews(
@@ -67,9 +67,7 @@ final class HomeSlideCell: BaseCollectionViewCell {
     }
 
     override func setLayout() {
-        imageView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
-        }
+        imageView.snp.makeConstraints { $0.edges.equalToSuperview() }
 
         bookmarkButton.snp.makeConstraints {
             $0.top.equalToSuperview().inset(5)
@@ -94,13 +92,11 @@ final class HomeSlideCell: BaseCollectionViewCell {
         }
     }
 
-    // MARK: - Bookmark Toggle Action
+    // MARK: - Functions
 
-    @objc private func bookmarkButtonTapped() {
+    private func toggleBookmarkState() {
         isBookmarked.toggle()
     }
-
-    // MARK: - Configuration
 
     func configure(with model: HomeSlideModel) {
         if let url = URL(string: model.imageUrl), model.imageUrl.hasPrefix("http") {
@@ -113,5 +109,9 @@ final class HomeSlideCell: BaseCollectionViewCell {
         titleLabel.text = model.title
         subtitleLabel.text = model.subtitle
         isBookmarked = false
+    }
+
+    @objc private func bookmarkButtonTapped() {
+        toggleBookmarkState()
     }
 }
