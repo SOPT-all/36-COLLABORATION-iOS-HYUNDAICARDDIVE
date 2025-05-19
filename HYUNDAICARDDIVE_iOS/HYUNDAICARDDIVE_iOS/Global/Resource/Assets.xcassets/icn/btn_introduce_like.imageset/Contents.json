@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "btn_introduce_like.png",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
