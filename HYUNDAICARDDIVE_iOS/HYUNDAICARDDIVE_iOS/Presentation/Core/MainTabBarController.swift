@@ -28,7 +28,7 @@ class MainTabBarController: UITabBarController {
     private func setupViewControllers() {
         let vc1 = UINavigationController(rootViewController: HomeViewController())
         let vc2 = SpaceCultureViewController()
-        let vc3 = ViewController()
+        let vc3 = SpaceInfoViewController()
 
         self.setViewControllers([vc1, vc2, vc3], animated: false)
         self.tabBar.isHidden = true
@@ -63,6 +63,7 @@ class MainTabBarController: UITabBarController {
         
         homeButton.addTarget(self, action: #selector(didTapHome), for: .touchUpInside)
         cultureButton.addTarget(self, action: #selector(didTapCulture), for: .touchUpInside)
+        profileButton.addTarget(self, action: #selector(didTapSpaceInfo), for: .touchUpInside)
         
         let buttonSize = CGSize(width: 36, height: 36)
         
@@ -92,12 +93,16 @@ class MainTabBarController: UITabBarController {
     @objc private func didTapCulture() {
         selectTab(index: 1)
     }
+    
+    @objc private func didTapSpaceInfo() {
+        selectTab(index: 2)
+    }
 
     private func selectTab(index: Int) {
         selectedIndex = index
         homeButton.isSelected = index == 0
         cultureButton.isSelected = index == 1
-        profileButton.isSelected = false
+        profileButton.isSelected = index == 2
     }
 }
 
