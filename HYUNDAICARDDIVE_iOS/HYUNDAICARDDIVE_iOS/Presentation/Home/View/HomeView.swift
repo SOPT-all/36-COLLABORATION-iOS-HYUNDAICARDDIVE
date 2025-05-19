@@ -20,7 +20,7 @@ final class HomeView: BaseView {
     private let spacing25_2 = UIView()
     private let stackView = UIStackView()
     private let searchImageView = UIImageView()
-    
+
     let categoryCollectionView = UICollectionView(
         frame: .zero,
         collectionViewLayout: {
@@ -33,7 +33,8 @@ final class HomeView: BaseView {
     )
 
     let switchButton = UIButton()
-    let slideView = HomeSlideView()
+
+    let contentContainer = UIView()
 
     // MARK: - Setup
 
@@ -42,7 +43,7 @@ final class HomeView: BaseView {
             stackView,
             searchImageView,
             categoryCollectionView,
-            slideView,
+            contentContainer,
             switchButton
         )
 
@@ -90,6 +91,8 @@ final class HomeView: BaseView {
         }
 
         switchButton.contentMode = .scaleAspectFit
+
+        contentContainer.backgroundColor = .clear
     }
 
     override func setLayout() {
@@ -115,10 +118,9 @@ final class HomeView: BaseView {
             $0.height.equalTo(36)
         }
 
-        slideView.snp.makeConstraints {
+        contentContainer.snp.makeConstraints {
             $0.top.equalTo(categoryCollectionView.snp.bottom).offset(20)
-            $0.leading.trailing.equalToSuperview()
-            $0.bottom.equalToSuperview()
+            $0.leading.trailing.bottom.equalToSuperview()
         }
     }
 
