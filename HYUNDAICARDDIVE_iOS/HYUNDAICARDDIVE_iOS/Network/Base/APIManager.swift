@@ -36,7 +36,7 @@ final class APIManager {
         do {
             let decoded = try JSONDecoder().decode(BaseResponseBody<T>.self, from: data)
             
-            guard decoded.code == "success" else {
+            guard decoded.code == 200 else {
                 throw NetworkError.serverMessage(decoded.message ?? "서버 오류 발생")
             }
             
@@ -46,6 +46,8 @@ final class APIManager {
             
             return result
         } catch {
+            print("❌ 디코딩 실패:", error)
+            print("📄 응답 본문:", String(data: data, encoding: .utf8) ?? "디코딩 불가")
             throw NetworkError.responseDecodingError
         }
     }

@@ -27,7 +27,7 @@ extension APIType {
         case .culture:
             return URL(string: Environment.baseURL + "/culture")
         case .spaceDetail:
-            return URL(string: Environment.baseURL + "/space/detail")
+            return URL(string: Environment.baseURL + "/space/details")
         case .space:
             return URL(string: Environment.baseURL + "/space")
         }

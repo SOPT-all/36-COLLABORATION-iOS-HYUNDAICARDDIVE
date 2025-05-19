@@ -21,4 +21,10 @@ struct Review: Decodable {
     let reviewer: String
     var likeCount: Int
     var isLiked: Bool = false
+    
+    private enum CodingKeys: String, CodingKey {
+        case imageUrl
+        case reviewer
+        case likeCount
+    }
 }

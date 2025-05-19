@@ -50,7 +50,7 @@ final class VisitorView: BaseView {
             $0.showsVerticalScrollIndicator = false
             $0.isPagingEnabled = true
             $0.isUserInteractionEnabled = true
-            $0.contentInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
+            $0.contentInset = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 15)
         }
     }
     

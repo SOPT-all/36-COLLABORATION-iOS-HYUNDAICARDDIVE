@@ -18,7 +18,7 @@ final class SpaceInfoView: BaseView {
     
     private let contentView = UIView()
     
-    private let mainImageView = UIImageView()
+    let mainImageView = UIImageView()
     
     private let searchBookView = SearchBookView()
     
@@ -50,7 +50,7 @@ final class SpaceInfoView: BaseView {
         }
         
         mainImageView.do {
-            $0.image = .iosCardIntroduceBanner
+            $0.backgroundColor = .white2
         }
         
         reservationButton.do {
@@ -176,5 +176,12 @@ final class SpaceInfoView: BaseView {
             $0.height.equalTo(56)
             $0.bottom.equalToSuperview().inset(50)
         }
+    }
+}
+
+extension SpaceInfoView {
+    func dataBind(imageURL: String) {
+        let url = URL(string: imageURL)
+        self.mainImageView.kf.setImage(with: url)
     }
 }
