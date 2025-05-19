@@ -31,9 +31,10 @@ final class CardInfoView: BaseView {
         }
         
         infoLabel.do {
-            $0.text = "어쩌고"
             $0.font = .custom(.ns_r_16)
             $0.textColor = .gray5
+            $0.numberOfLines = 0
+            $0.textAlignment = .left
         }
     }
     
@@ -52,7 +53,15 @@ final class CardInfoView: BaseView {
         
         infoLabel.snp.makeConstraints {
             $0.top.equalTo(titleLabel.snp.bottom).offset(16)
-            $0.leading.trailing.equalToSuperview().inset(20)
+            $0.horizontalEdges.equalToSuperview().inset(20)
         }
+    }
+}
+
+// MARK: - Func
+
+extension CardInfoView{
+    func dataBind(spaceIntroduction: String) {
+        infoLabel.text = spaceIntroduction
     }
 }

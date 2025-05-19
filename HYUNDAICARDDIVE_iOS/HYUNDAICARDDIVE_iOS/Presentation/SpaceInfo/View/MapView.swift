@@ -35,13 +35,13 @@ final class MapView: BaseView {
         }
         
         addressLabel.do {
-            $0.text = "저쩌고"
             $0.font = .custom(.ns_r_14)
             $0.textColor = .gray5
         }
         
         mapImageView.do {
             $0.image = .iosImgMap
+            $0.clipsToBounds = true
         }
         
         kakaoMapButton.do {
@@ -54,15 +54,7 @@ final class MapView: BaseView {
             $0.layer.cornerRadius = 3
         }
         
-        var config = UIButton.Configuration.filled()
-        config.title = "길찾기"
-        config.baseBackgroundColor = .pointYellow
-        config.cornerStyle = .capsule
-        config.image = .imgIntroduceKakaomap
-        config.imagePlacement = .leading
-        
-        findButton.configuration = config
-        findButton.titleLabel?.font = .custom(.ns_r_11)
+        buttonConfig()
     }
     
     override func setUI() {
@@ -105,5 +97,31 @@ final class MapView: BaseView {
             $0.height.equalTo(56)
             $0.centerX.equalToSuperview()
         }
+    }
+    
+    // MARK: - Func
+    
+    private func buttonConfig() {
+        var config = UIButton.Configuration.filled()
+        let resizeImage = UIImage(resource: .imgIntroduceKakaomap).resize(targetSize: CGSize(width: 20, height: 20))
+        config.titleAlignment = .trailing
+        config.attributedTitle = AttributedString("길찾기", attributes: AttributeContainer([
+            .font: UIFont.custom(.ns_r_11),
+            .foregroundColor: UIColor.black
+        ]))
+        config.baseBackgroundColor = .pointYellow
+        config.cornerStyle = .capsule
+        config.image = resizeImage
+        config.imagePlacement = .leading
+        config.contentInsets = NSDirectionalEdgeInsets(top: 2, leading: 5, bottom: 2, trailing: 10)
+                
+        findButton.configuration = config
+        findButton.titleLabel?.font = .custom(.ns_r_11)
+    }
+}
+
+extension MapView {
+    func dataBind(address: String) {
+        addressLabel.text = address
     }
 }
