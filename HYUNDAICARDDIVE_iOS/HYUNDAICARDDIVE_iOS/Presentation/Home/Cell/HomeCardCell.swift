@@ -7,51 +7,51 @@
 
 import UIKit
 import SnapKit
-import Then
 import Kingfisher
 
 final class HomeCardCell: BaseCollectionViewCell {
 
     // MARK: - UI Components
 
-    private let imageView = UIImageView().then {
-        $0.contentMode = .scaleAspectFill
-        $0.layer.cornerRadius = 7
-        $0.clipsToBounds = true
-    }
-
-    private let categoryLabel = UILabel.paddedLabel(top: 2, left: 10, bottom: 2, right: 10).then {
-        $0.font = .custom(.ns_sb_9)
-        $0.textColor = .black
-        $0.backgroundColor = .white
-        $0.textAlignment = .center
-        $0.clipsToBounds = true
-        $0.layer.cornerRadius = 13
-    }
-
-    private let titleLabel = UILabel().then {
-        $0.font = .custom(.ns_b_16)
-        $0.textColor = .white
-        $0.numberOfLines = 2
-        $0.textAlignment = .center
-    }
-
-    private let subtitleLabel = UILabel().then {
-        $0.font = .custom(.ns_sb_9)
-        $0.textColor = .white
-        $0.numberOfLines = 2
-        $0.textAlignment = .center
-    }
+    private let imageView = UIImageView()
+    private let categoryLabel = UILabel.paddedLabel(top: 2, left: 10, bottom: 2, right: 10)
+    private let titleLabel = UILabel()
+    private let subtitleLabel = UILabel()
+    private let textStack = UIStackView()
 
     // MARK: - Override
 
+    override func setStyle() {
+        imageView.contentMode = .scaleAspectFill
+        imageView.layer.cornerRadius = 7
+        imageView.clipsToBounds = true
+
+        categoryLabel.font = .custom(.ns_sb_9)
+        categoryLabel.textColor = .black
+        categoryLabel.backgroundColor = .white
+        categoryLabel.textAlignment = .center
+        categoryLabel.clipsToBounds = true
+        categoryLabel.layer.cornerRadius = 13
+
+        titleLabel.font = .custom(.ns_b_16)
+        titleLabel.textColor = .white
+        titleLabel.numberOfLines = 2
+        titleLabel.textAlignment = .center
+
+        subtitleLabel.font = .custom(.ns_sb_9)
+        subtitleLabel.textColor = .white
+        subtitleLabel.numberOfLines = 2
+        subtitleLabel.textAlignment = .center
+
+        textStack.axis = .vertical
+        textStack.alignment = .center
+        textStack.spacing = 7
+    }
+
     override func setUI() {
-        contentView.addSubviews(
-            imageView,
-            categoryLabel,
-            titleLabel,
-            subtitleLabel
-        )
+        contentView.addSubview(imageView)
+        contentView.addSubview(textStack)
+        textStack.addArrangedSubviews(categoryLabel, titleLabel, subtitleLabel)
     }
 
     override func setLayout() {
@@ -59,26 +59,13 @@ final class HomeCardCell: BaseCollectionViewCell {
             $0.edges.equalToSuperview()
         }
 
-        let textStack = UIStackView(arrangedSubviews: [categoryLabel, titleLabel, subtitleLabel]).then {
-            $0.axis = .vertical
-            $0.alignment = .center
-            $0.spacing = 7
-        }
-
-        contentView.addSubview(textStack)
-
         textStack.snp.makeConstraints {
             $0.center.equalToSuperview()
-            $0.leading.greaterThanOrEqualToSuperview().offset(16)
-            $0.trailing.lessThanOrEqualToSuperview().offset(-16)
+            $0.leading.trailing.equalToSuperview().inset(16)
         }
 
         categoryLabel.snp.makeConstraints {
             $0.height.greaterThanOrEqualTo(20)
-        }
-
-        titleLabel.snp.makeConstraints {
-            $0.width.lessThanOrEqualToSuperview().offset(-12)
         }
 
         subtitleLabel.snp.makeConstraints {
