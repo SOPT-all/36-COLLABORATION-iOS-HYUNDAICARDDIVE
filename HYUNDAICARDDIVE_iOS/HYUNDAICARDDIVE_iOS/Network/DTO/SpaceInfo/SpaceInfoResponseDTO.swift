@@ -19,5 +19,6 @@ struct SpaceInfoResponseDTO: Decodable {
 struct Review: Decodable {
     let imageUrl: String
     let reviewer: String
-    let likeCount: Int
+    var likeCount: Int
+    var isLiked: Bool = false
 }
