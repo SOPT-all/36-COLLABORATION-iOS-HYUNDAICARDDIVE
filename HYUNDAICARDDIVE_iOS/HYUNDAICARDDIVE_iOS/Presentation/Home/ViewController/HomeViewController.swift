@@ -156,7 +156,3 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         return CGSize(width: width, height: 32)
     }
 }
-
-#Preview {
-    HomeViewController()
-}

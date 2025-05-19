@@ -21,7 +21,7 @@ final class HomeSlideView: BaseView, UICollectionViewDelegate {
     private let collectionView = UICollectionView(
         frame: .zero,
         collectionViewLayout: {
-            let layout = UICollectionViewFlowLayout()
+            let layout = CarouselFlowLayout()
             layout.scrollDirection = .vertical
             layout.minimumLineSpacing = 16
             layout.itemSize = CGSize(width: UIScreen.main.bounds.width - 60, height: 445)
