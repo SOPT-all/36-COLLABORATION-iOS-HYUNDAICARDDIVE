@@ -16,7 +16,7 @@ final class SpaceInfoViewController: BaseViewController {
     
     private let rootView = SpaceInfoView()
     
-    private let service: MockSpaceInfoService = MockSpaceInfoService()
+    private let service: SpaceInfoService = SpaceInfoService()
     private var reviewList: [Review] = []
     
     // MARK: - LifeCycle
@@ -65,17 +65,17 @@ private extension SpaceInfoViewController {
             self.reviewList = data.reviewList
             
             DispatchQueue.main.async {
+                self.rootView.dataBind(imageURL: data.banner)
                 self.rootView.cardInfoView.dataBind(spaceIntroduction: data.introduction)
                 self.rootView.mapView.dataBind(address: data.address)
                 self.rootView.questionView.dataBind(
                     telephone: data.telephone,
                     email: data.email
                 )
-                
                 self.rootView.visitorView.visitorListCollectionView.reloadData()
             }
         } catch {
-            print("데이터 로딩 실패")
+            print("❌ 데이터 로딩 실패: \(error.localizedDescription)")
         }
     }
 }
@@ -101,7 +101,7 @@ extension SpaceInfoViewController: UICollectionViewDataSource {
 
 extension SpaceInfoViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let inset: CGFloat = 40
+        let inset: CGFloat = 20
         let width = collectionView.bounds.width - inset
         let height = collectionView.bounds.height
         return CGSize(width: width, height: height)
@@ -120,15 +120,12 @@ extension SpaceInfoViewController: VisitorListCollectionViewCellDelegate {
     func likeButtondDidtap(in cell: VisitorListCollectionViewCell) {
         guard let indexPath = rootView.visitorView.visitorListCollectionView.indexPath(for: cell) else { return }
         
-        reviewList[indexPath.item].isLiked.toggle()
-        
-        if reviewList[indexPath.item].isLiked {
-            reviewList[indexPath.item].likeCount += 1
-        } else {
-            reviewList[indexPath.item].likeCount -= 1
-        }
+        var updatedReview = reviewList[indexPath.item]
+        updatedReview.isLiked.toggle()
+        updatedReview.likeCount += updatedReview.isLiked ? 1 : -1
+        reviewList[indexPath.item] = updatedReview
 
-        cell.dataBind(reviewList[indexPath.item])
+        cell.dataBind(updatedReview)
     }
 }
 

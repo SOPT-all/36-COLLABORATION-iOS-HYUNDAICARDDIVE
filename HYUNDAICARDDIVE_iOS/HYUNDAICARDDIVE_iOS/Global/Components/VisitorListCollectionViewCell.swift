@@ -43,7 +43,7 @@ final class VisitorListCollectionViewCell: BaseCollectionViewCell {
         
         visitorImageView.do {
             $0.clipsToBounds = true
-            $0.contentMode = .scaleAspectFit
+            $0.contentMode = .scaleAspectFill
         }
         
         nameLabel.do {
@@ -82,7 +82,7 @@ final class VisitorListCollectionViewCell: BaseCollectionViewCell {
         
         visitorImageView.snp.makeConstraints {
             $0.top.equalToSuperview()
-            $0.width.equalTo(170)
+            $0.width.equalTo(312)
             $0.height.equalTo(214)
             $0.centerX.equalToSuperview()
         }
