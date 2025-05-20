@@ -22,8 +22,6 @@
 			membershipExceptions = (
 				Global/Enums/.gitkeep,
 				Global/Info.plist,
-				Presentation/SpaceCulture/View/.gitkeep,
-				Presentation/SpaceCulture/ViewController/.gitkeep,
 			);
 			target = 6CEFAD902DCF46D0007B14D7 /* HYUNDAICARDDIVE_iOS */;
 		};
