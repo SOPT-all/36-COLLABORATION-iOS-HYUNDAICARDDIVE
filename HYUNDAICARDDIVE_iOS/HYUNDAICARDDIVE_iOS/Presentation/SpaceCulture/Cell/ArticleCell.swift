@@ -59,7 +59,7 @@ final class ArticleCell: BaseCollectionViewCell {
         }
         
         logoLabel.snp.makeConstraints {
-            $0.top.leading.equalToSuperview().offset(10)
+            $0.top.leading.equalToSuperview().inset(10)
             $0.width.equalTo(327)
             $0.height.equalTo(22)
         }
