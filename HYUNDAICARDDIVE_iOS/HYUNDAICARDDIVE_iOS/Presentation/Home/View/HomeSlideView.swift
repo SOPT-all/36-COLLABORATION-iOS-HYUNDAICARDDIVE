@@ -56,24 +56,29 @@ final class HomeSlideView: BaseView, UICollectionViewDelegate {
     
     func setData(_ data: [HomeCard]) {
         originalSlides = data
-
+        
         guard !data.isEmpty else {
             infiniteSlides = []
             collectionView.reloadData()
             return
         }
-
+        
+        if data.count == 1 {
+            infiniteSlides = data
+            collectionView.reloadData()
+            return
+        }
+        
         let repeatCount = 5
         let repeated = Array(repeating: data, count: repeatCount).flatMap { $0 }
-
+        
         let total = repeated.count
         let targetIndex = total / 2
         let offset = targetIndex % data.count
-
+        
         infiniteSlides = Array(repeated.dropFirst(offset)) + Array(repeated.prefix(offset))
-
         collectionView.reloadData()
-
+        
         DispatchQueue.main.async {
             self.collectionView.scrollToItem(
                 at: IndexPath(item: targetIndex, section: 0),
@@ -110,6 +115,7 @@ extension HomeSlideView: UICollectionViewDataSource {
 
 extension HomeSlideView: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        guard originalSlides.count > 1 else { return }
         let offsetY = scrollView.contentOffset.y
         let contentHeight = scrollView.contentSize.height
         let height = scrollView.bounds.size.height
