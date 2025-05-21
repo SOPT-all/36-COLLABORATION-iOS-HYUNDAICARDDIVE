@@ -73,21 +73,17 @@ extension SpaceCultureCompositionalLayoutFactory {
             contentInsets: .init(top: 4, leading: 4, bottom: 4, trailing: 4)
         )
 
-        let horizontalGroup = NSCollectionLayoutGroup.horizontal(
-            layoutSize: NSCollectionLayoutSize(
-                widthDimension: .fractionalWidth(1.0),
-                heightDimension: .estimated(123)
-            ),
-            subitems: Array(repeating: item, count: 3)
+        let horizontalGroup = createGroup(
+            items: Array(repeating: item, count: 3),
+            widthDimension: .fractionalWidth(1.0),
+            heightDimension: .estimated(123)
         )
         horizontalGroup.interItemSpacing = .fixed(31)
 
-        let verticalGroup = NSCollectionLayoutGroup.vertical(
-            layoutSize: NSCollectionLayoutSize(
-                widthDimension: .fractionalWidth(1.0),
-                heightDimension: .estimated(428)
-            ),
-            subitems: [horizontalGroup]
+        let verticalGroup = createGroup(
+            items: [horizontalGroup],
+            widthDimension: .fractionalWidth(1.0),
+            heightDimension: .estimated(428)
         )
         verticalGroup.contentInsets.bottom = 12
 
