@@ -43,12 +43,10 @@ extension SpaceCultureCompositionalLayoutFactory {
             heightDimension: .absolute(148)
         )
         
-        let group = NSCollectionLayoutGroup.vertical(
-            layoutSize: NSCollectionLayoutSize(
-                widthDimension: .fractionalWidth(1.0),
-                heightDimension: .absolute(148)
-            ),
-            subitems: [item]
+        let group =  createGroup(
+            items: [item],
+            widthDimension: .fractionalWidth(1.0),
+            heightDimension: .absolute(148)
         )
         
         let section = createSection(
