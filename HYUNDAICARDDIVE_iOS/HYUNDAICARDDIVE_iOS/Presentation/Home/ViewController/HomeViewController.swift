@@ -20,6 +20,19 @@ final class HomeViewController: BaseViewController {
 
     private let slideView = HomeSlideView()
     private let cardView = HomeCardView()
+    private var homeCards: [HomeCard] = []
+    
+    private let categoryMap: [String: String] = [
+        "전체": "total",
+        "디자인·아트": "design",
+        "건축·인테리어": "building",
+        "여행": "trip",
+        "음악": "music",
+        "쿠킹·고메": "cooking",
+        "스타일": "style",
+        "테크": "tech",
+        "스페셜": "special"
+    ]
 
     private let floatingButton = UIButton().then {
         let resizedImage = UIImage(named: "ic_home_align1")?.resize(targetSize: CGSize(width: 40, height: 40))
@@ -43,6 +56,7 @@ final class HomeViewController: BaseViewController {
         super.viewDidLoad()
         setupFloatingButton()
         showInitialSlideView()
+        fetchHomeData()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -74,14 +88,16 @@ final class HomeViewController: BaseViewController {
     }
 
     private func showInitialSlideView() {
+        clearCurrentContentView()
         rootView.contentContainer.addSubview(slideView)
-        slideView.setData(dummySlides)
+        slideView.setData(homeCards)
         slideView.snp.makeConstraints { $0.edges.equalToSuperview() }
     }
 
     private func showCardView() {
+        clearCurrentContentView()
         rootView.contentContainer.addSubview(cardView)
-        cardView.setData(dummyCards)
+        cardView.setData(homeCards)
         cardView.snp.makeConstraints { $0.edges.equalToSuperview() }
     }
 
@@ -89,14 +105,38 @@ final class HomeViewController: BaseViewController {
         rootView.contentContainer.subviews.forEach { $0.removeFromSuperview() }
     }
 
+    // MARK: - API 호출
+
+    private func fetchHomeData(category: String? = nil, sortOption: String = "recommended") {
+        Task {
+            do {
+                let response = try await HomeService().fetchHome(
+                    sortOption: sortOption,
+                    category: category == "전체" ? nil : category
+                )
+                self.homeCards = response.cardList
+
+                if isCardViewShown {
+                    self.cardView.setData(response.cardList)
+                } else {
+                    self.slideView.setData(response.cardList)
+                }
+            } catch {
+                print("❌ 홈 API 에러: \(error.localizedDescription)")
+            }
+        }
+    }
+
     // MARK: - Actions
 
     @objc private func didTapSuggestion() {
         rootView.updateButtonStyle(isSuggestionSelected: true)
+        fetchHomeData(category: categories[selectedIndex], sortOption: "recommended")
     }
 
     @objc private func didTapRecent() {
         rootView.updateButtonStyle(isSuggestionSelected: false)
+        fetchHomeData(category: categories[selectedIndex], sortOption: "latest")
     }
 
     @objc private func didTapFloatingButton() {
@@ -106,7 +146,6 @@ final class HomeViewController: BaseViewController {
         let resizedImage = UIImage(named: imageName)?.resize(targetSize: CGSize(width: 40, height: 40))
         floatingButton.setImage(resizedImage, for: .normal)
 
-        clearCurrentContentView()
         if isCardViewShown {
             showCardView()
         } else {
@@ -141,6 +180,10 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         selectedIndex = indexPath.item
         collectionView.reloadData()
+
+        let selectedCategoryDisplayName = categories[indexPath.item]
+        let queryCategory = categoryMap[selectedCategoryDisplayName] ?? "전체"
+        fetchHomeData(category: queryCategory)
     }
 
     func collectionView(
