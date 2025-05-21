@@ -174,7 +174,7 @@ final class SpaceInfoView: BaseView {
             $0.top.equalTo(noticeView.snp.bottom)
             $0.width.equalToSuperview()
             $0.height.equalTo(56)
-            $0.bottom.equalToSuperview().inset(50)
+            $0.bottom.equalToSuperview()
         }
     }
 }

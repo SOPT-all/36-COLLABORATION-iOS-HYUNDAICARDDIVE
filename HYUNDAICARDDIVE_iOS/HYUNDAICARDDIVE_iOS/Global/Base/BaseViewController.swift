@@ -36,6 +36,7 @@ class BaseViewController: UIViewController {
 extension BaseViewController {
     
     func setNavigationBar(type: NavigationBarType) {
+        self.navigationController?.setNavigationBarHidden(false, animated: false)
         let navigationBarAppearance = NavigationBarType.makeAppearance(type: type)
         self.navigationController?.navigationBar.standardAppearance = navigationBarAppearance
         self.navigationController?.navigationBar.scrollEdgeAppearance = navigationBarAppearance
@@ -51,14 +52,7 @@ extension BaseViewController {
             )
             barButtonItem.tintColor = .black
             self.navigationItem.leftBarButtonItem = barButtonItem
-        }
-    }
-    
-    /// 화면 터치 시 키보드 내리기
-    func hideKeyboardWhenDidTap() {
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
-        tapGesture.cancelsTouchesInView = false
-        view.addGestureRecognizer(tapGesture)
+        } 
     }
     
     @objc

@@ -28,8 +28,6 @@ final class SpaceInfoViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationController?.navigationBar.isHidden = true
-        
         setDelegate()
         setRegister()
         
@@ -38,8 +36,12 @@ final class SpaceInfoViewController: BaseViewController {
         }
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+            super.viewWillAppear(animated)
+            navigationController?.setNavigationBarHidden(true, animated: animated)
+    }
+    
     override func setAction() {
-        
         rootView.backButton.addTarget(self, action: #selector(backButtonDidTap), for: .touchUpInside)
     }
     
