@@ -1,10 +1,13 @@
 import UIKit
+import Kingfisher
 
 final class SpaceCultureViewController: BaseViewController {
     
+    private let spaceCultureService = SpaceCultureService()
+    
     private let spaceCultureView = SpaceCultureView()
     
-    private let whatsOnItems = WhatsOnModel.makeData()
+    private var whatsOnItems: [WhatsOn] = []
     private let spaceItems = SpaceModel.makeData()
     private let cultureItems = CultureModel.makeData()
     private let spaceCultureCells = [WhatsOnCell.self, SpaceCell.self, CultureCell.self]
@@ -14,9 +17,15 @@ final class SpaceCultureViewController: BaseViewController {
         view = spaceCultureView
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    override func viewDidLoad() {
+        super.viewDidLoad()
         setNavigationBar(type: .spaceAndCulture)
+        setView()
+        setDelegate()
+        
+        Task {
+            await fetchWhatsOn()
+        }
     }
     
     override func setView() {
@@ -47,6 +56,21 @@ final class SpaceCultureViewController: BaseViewController {
             collectionView.register($0,
                                     forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
                                     withReuseIdentifier: $0.reuseIdentifier)
+        }
+    }
+}
+
+extension SpaceCultureViewController {
+    func fetchWhatsOn() async {
+        do {
+            let data = try await spaceCultureService.fetch()
+            whatsOnItems = data.dataList
+            
+            DispatchQueue.main.async {
+                self.spaceCultureView.collectionView.reloadData()
+            }
+        } catch {
+            print("❌ 데이터 로딩 실패: \(error.localizedDescription)")
         }
     }
 }
@@ -86,13 +110,13 @@ extension SpaceCultureViewController: UICollectionViewDataSource {
         }
         switch section {
         case .whatsOn:
-            return dequeCell(WhatsOnCell.self, indexPath: indexPath, from: collectionView)
+            return dequeCell(WhatsOnCell.self, indexPath: indexPath, from: collectionView, item: whatsOnItems)
             
         case .space:
-            return dequeCell(SpaceCell.self, indexPath: indexPath, from: collectionView)
+            return dequeCell(SpaceCell.self, indexPath: indexPath, from: collectionView, item: spaceItems)
             
         case .culture:
-            return dequeCell(CultureCell.self, indexPath: indexPath, from: collectionView)
+            return dequeCell(CultureCell.self, indexPath: indexPath, from: collectionView, item: cultureItems)
         }
     }
     
@@ -120,11 +144,12 @@ extension SpaceCultureViewController: UICollectionViewDataSource {
     private func dequeCell<T: BaseCollectionViewCell & DataBindableCell>(
         _ type: T.Type,
         indexPath: IndexPath,
-        from collectionView: UICollectionView
+        from collectionView: UICollectionView,
+        item: [T.DataType]
     ) -> T {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: T.reuseIdentifier, for: indexPath) as! T
         
-        cell.dataBind(row: indexPath.row)
+        cell.dataBind(item: item[indexPath.row])
         return cell
     }
     
