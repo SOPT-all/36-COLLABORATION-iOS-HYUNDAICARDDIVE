@@ -18,8 +18,13 @@ final class SpaceCultureDetailViewController: BaseViewController {
         view = spaceCultureDetailView
     }
     
-    override func viewDidLoad() {
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         setNavigationBar(type: .backButton)
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
         setDelegate()
         setAction()
         
