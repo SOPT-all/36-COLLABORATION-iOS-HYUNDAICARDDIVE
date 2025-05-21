@@ -1,3 +1,4 @@
 protocol DataBindableCell {
-    func dataBind(row: Int)
+    associatedtype DataType
+    func dataBind(item: DataType)
 }

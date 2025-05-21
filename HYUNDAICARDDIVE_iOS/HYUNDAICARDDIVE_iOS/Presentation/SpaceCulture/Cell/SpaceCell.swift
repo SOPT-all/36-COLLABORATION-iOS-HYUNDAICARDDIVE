@@ -2,8 +2,8 @@ import UIKit
 
 final class SpaceCell: BaseCollectionViewCell, DataBindableCell {
     
-    private let spaceData = SpaceModel.makeData()
-    
+    typealias DataType = SpaceModel
+        
     private let spaceImageView = UIImageView()
     private let descriptionLabel = UILabel()
     private let spaceStackView = UIStackView()
@@ -41,8 +41,8 @@ final class SpaceCell: BaseCollectionViewCell, DataBindableCell {
         }
     }
     
-    func dataBind(row: Int) {
-        spaceImageView.image = spaceData[row].image.resize(targetSize: CGSize(width: 66, height: 26))
-        descriptionLabel.text = spaceData[row].description
+    func dataBind(item: SpaceModel) {
+        spaceImageView.image = item.image.resize(targetSize: CGSize(width: 66, height: 26))
+        descriptionLabel.text = item.description
     }
 }

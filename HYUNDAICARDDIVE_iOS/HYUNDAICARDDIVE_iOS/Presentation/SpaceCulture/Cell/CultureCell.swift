@@ -2,8 +2,8 @@ import UIKit
 
 final class CultureCell: BaseCollectionViewCell, DataBindableCell {
     
-    private let cultureData = CultureModel.makeData()
-    
+    typealias DataType = CultureModel
+        
     private let cultureImageView = UIImageView()
     private let descriptionLabel = UILabel()
     
@@ -40,8 +40,8 @@ final class CultureCell: BaseCollectionViewCell, DataBindableCell {
         }
     }
     
-    func dataBind(row: Int) {
-        cultureImageView.image = cultureData[row].image.resize(targetSize: CGSize(width: 64, height: 40))
-        descriptionLabel.text = cultureData[row].description
+    func dataBind(item: CultureModel) {
+        cultureImageView.image = item.image.resize(targetSize: CGSize(width: 64, height: 40))
+        descriptionLabel.text = item.description
     }
 }

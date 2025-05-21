@@ -2,8 +2,8 @@ import UIKit
 
 final class WhatsOnCell: BaseCollectionViewCell, DataBindableCell {
     
-    private let whatsOnData = WhatsOnModel.makeData()
-    
+    typealias DataType = WhatsOn
+        
     private let dotView = UIImageView()
     private let timeLineView = UIView()
     private let timeLineStackView = UIStackView()
@@ -112,13 +112,13 @@ final class WhatsOnCell: BaseCollectionViewCell, DataBindableCell {
         titleLabel.snp.makeConstraints {
             $0.top.equalTo(dateLabel.snp.bottom).offset(4)
             $0.leading.equalToSuperview()
-            $0.width.equalTo(150)
+            $0.width.equalTo(185)
         }
         
         descriptionLabel.snp.makeConstraints {
             $0.top.equalTo(titleLabel.snp.bottom).offset(6)
             $0.leading.equalToSuperview()
-            $0.width.equalTo(190)
+            $0.width.equalTo(200)
         }
         
         locationAndReservationStackView.snp.makeConstraints {
@@ -149,20 +149,21 @@ final class WhatsOnCell: BaseCollectionViewCell, DataBindableCell {
         }
     }
     
-    func dataBind(row: Int) {
-        dateLabel.text = whatsOnData[row].date
-        titleLabel.text = whatsOnData[row].title
-        descriptionLabel.text = whatsOnData[row].description
-        stageLabel.text = whatsOnData[row].stage
-        locationLabel.text = whatsOnData[row].location
+    func dataBind(item: WhatsOn) {
+        dateLabel.text = item.date
+        titleLabel.text = item.title
+        descriptionLabel.text = item.description
+        stageLabel.text = item.stage
+        locationLabel.text = item.location
         
-        if whatsOnData[row].isReserved {
+        if item.reservation {
             reservationLabel.text = "예매"
         } else {
             locationReservationDivideLine.isHidden = true
             reservationLabel.isHidden = true
         }
         
-        programImageView.image = whatsOnData[row].image.resize(targetSize: CGSize(width: 90, height: 90))
+        let url = URL(string: item.image)
+        programImageView.kf.setImage(with: url)
     }
 }
