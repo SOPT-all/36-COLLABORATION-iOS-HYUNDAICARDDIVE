@@ -10,14 +10,14 @@ import SnapKit
 import Then
 
 final class HomeSlideView: BaseView, UICollectionViewDelegate {
-
+    
     // MARK: - Properties
-
-    private var originalSlides: [HomeSlideModel] = []
-    private var infiniteSlides: [HomeSlideModel] = []
-
+    
+    private var originalSlides: [HomeCard] = []
+    private var infiniteSlides: [HomeCard] = []
+    
     // MARK: - UI
-
+    
     private let collectionView = UICollectionView(
         frame: .zero,
         collectionViewLayout: {
@@ -29,9 +29,9 @@ final class HomeSlideView: BaseView, UICollectionViewDelegate {
             return layout
         }()
     )
-
+    
     // MARK: - Setup
-
+    
     override func setStyle() {
         collectionView.do {
             $0.showsVerticalScrollIndicator = false
@@ -41,27 +41,45 @@ final class HomeSlideView: BaseView, UICollectionViewDelegate {
             $0.dataSource = self
         }
     }
-
+    
     override func setUI() {
         addSubview(collectionView)
     }
-
+    
     override func setLayout() {
         collectionView.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
     }
-
+    
     // MARK: - Data Binding
-
-    func setData(_ data: [HomeSlideModel]) {
+    
+    func setData(_ data: [HomeCard]) {
         originalSlides = data
-        infiniteSlides = Array(repeating: data, count: 5).flatMap { $0 }
+
+        guard !data.isEmpty else {
+            infiniteSlides = []
+            collectionView.reloadData()
+            return
+        }
+
+        let repeatCount = 5
+        let repeated = Array(repeating: data, count: repeatCount).flatMap { $0 }
+
+        let total = repeated.count
+        let targetIndex = total / 2
+        let offset = targetIndex % data.count
+
+        infiniteSlides = Array(repeated.dropFirst(offset)) + Array(repeated.prefix(offset))
+
         collectionView.reloadData()
 
         DispatchQueue.main.async {
-            let middleIndex = self.infiniteSlides.count / 2
-            self.collectionView.scrollToItem(at: IndexPath(item: middleIndex, section: 0), at: .top, animated: false)
+            self.collectionView.scrollToItem(
+                at: IndexPath(item: targetIndex, section: 0),
+                at: .top,
+                animated: false
+            )
         }
     }
 }

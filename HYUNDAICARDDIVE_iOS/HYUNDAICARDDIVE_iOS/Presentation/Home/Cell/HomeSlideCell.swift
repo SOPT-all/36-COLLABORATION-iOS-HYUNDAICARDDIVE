@@ -98,20 +98,38 @@ final class HomeSlideCell: BaseCollectionViewCell {
         isBookmarked.toggle()
     }
 
-    func configure(with model: HomeSlideModel) {
-        if let url = URL(string: model.imageUrl), model.imageUrl.hasPrefix("http") {
+    func configure(with card: HomeCard) {
+        if let url = URL(string: card.imageUrl), card.imageUrl.hasPrefix("http") {
             imageView.kf.setImage(with: url)
         } else {
-            imageView.image = UIImage(named: model.imageUrl)
+            imageView.image = UIImage(named: card.imageUrl)
         }
 
-        categoryLabel.text = model.category
-        titleLabel.text = model.title
-        subtitleLabel.text = model.subtitle
+        categoryLabel.text = card.displaySlideCategory
+        titleLabel.text = card.title
+        subtitleLabel.text = card.hashTag
         isBookmarked = false
     }
 
     @objc private func bookmarkButtonTapped() {
         toggleBookmarkState()
+    }
+}
+
+// MARK: - Extensions
+
+extension HomeCard {
+    var displaySlideCategory: String {
+        return [
+            "design": "디자인·아트",
+            "building": "건축·인테리어",
+            "trip": "여행",
+            "music": "음악",
+            "cooking": "쿠킹·고메",
+            "style": "스타일",
+            "tech": "테크",
+            "special": "스페셜",
+            "total": "전체"
+        ][category] ?? category
     }
 }
