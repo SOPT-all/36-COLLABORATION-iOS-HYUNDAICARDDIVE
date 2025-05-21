@@ -9,7 +9,8 @@ enum SectionType: Int, CaseIterable {
 class SpaceCultureCompositionalLayoutFactory: BaseCompositionalLayoutFactory {
     
     func create() -> UICollectionViewCompositionalLayout {
-        let layout = UICollectionViewCompositionalLayout { [self] (sectionIndex, _) -> NSCollectionLayoutSection? in
+        let layout = UICollectionViewCompositionalLayout { [self] (sectionIndex, _) ->
+            NSCollectionLayoutSection? in
             guard let section: SectionType = SectionType(rawValue: sectionIndex) else {
                 return nil
             }
@@ -43,12 +44,10 @@ extension SpaceCultureCompositionalLayoutFactory {
             heightDimension: .absolute(148)
         )
         
-        let group = NSCollectionLayoutGroup.vertical(
-            layoutSize: NSCollectionLayoutSize(
-                widthDimension: .fractionalWidth(1.0),
-                heightDimension: .absolute(148)
-            ),
-            subitems: [item]
+        let group =  createGroup(
+            items: [item],
+            widthDimension: .fractionalWidth(1.0),
+            heightDimension: .absolute(148)
         )
         
         let section = createSection(
@@ -73,21 +72,17 @@ extension SpaceCultureCompositionalLayoutFactory {
             contentInsets: .init(top: 4, leading: 4, bottom: 4, trailing: 4)
         )
 
-        let horizontalGroup = NSCollectionLayoutGroup.horizontal(
-            layoutSize: NSCollectionLayoutSize(
-                widthDimension: .fractionalWidth(1.0),
-                heightDimension: .estimated(123)
-            ),
-            subitems: Array(repeating: item, count: 3)
+        let horizontalGroup = createGroup(
+            items: Array(repeating: item, count: 3),
+            widthDimension: .fractionalWidth(1.0),
+            heightDimension: .estimated(123)
         )
         horizontalGroup.interItemSpacing = .fixed(31)
 
-        let verticalGroup = NSCollectionLayoutGroup.vertical(
-            layoutSize: NSCollectionLayoutSize(
-                widthDimension: .fractionalWidth(1.0),
-                heightDimension: .estimated(428)
-            ),
-            subitems: [horizontalGroup]
+        let verticalGroup = createGroup(
+            items: [horizontalGroup],
+            widthDimension: .fractionalWidth(1.0),
+            heightDimension: .estimated(428)
         )
         verticalGroup.contentInsets.bottom = 12
 
