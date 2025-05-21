@@ -17,9 +17,13 @@ final class SpaceCultureViewController: BaseViewController {
         view = spaceCultureView
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setNavigationBar(type: .spaceAndCulture)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        setNavigationBar(type: .spaceAndCulture)
         setView()
         setDelegate()
         
