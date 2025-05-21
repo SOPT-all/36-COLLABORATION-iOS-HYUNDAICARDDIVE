@@ -28,9 +28,8 @@ class MainTabBarController: UITabBarController {
     private func setupViewControllers() {
         let vc1 = UINavigationController(rootViewController: HomeViewController())
         let vc2 = SpaceCultureViewController()
-        let vc3 = SpaceInfoViewController()
 
-        self.setViewControllers([vc1, vc2, vc3], animated: false)
+        self.setViewControllers([vc1, vc2], animated: false)
         self.tabBar.isHidden = true
     }
 
@@ -95,17 +94,12 @@ class MainTabBarController: UITabBarController {
     }
     
     @objc private func didTapSpaceInfo() {
-        selectTab(index: 2)
+        selectTab(index: 1)
     }
 
     private func selectTab(index: Int) {
         selectedIndex = index
         homeButton.isSelected = index == 0
         cultureButton.isSelected = index == 1
-        profileButton.isSelected = index == 2
     }
-}
-
-#Preview {
-    MainTabBarController()
 }
