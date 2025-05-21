@@ -9,7 +9,8 @@ enum SectionType: Int, CaseIterable {
 class SpaceCultureCompositionalLayoutFactory: BaseCompositionalLayoutFactory {
     
     func create() -> UICollectionViewCompositionalLayout {
-        let layout = UICollectionViewCompositionalLayout { [self] (sectionIndex, _) -> NSCollectionLayoutSection? in
+        let layout = UICollectionViewCompositionalLayout { [self] (sectionIndex, _) ->
+            NSCollectionLayoutSection? in
             guard let section: SectionType = SectionType(rawValue: sectionIndex) else {
                 return nil
             }
