@@ -7,9 +7,12 @@ enum Metric {
 
 final class SpaceCultureDetailViewController: BaseViewController {
     
-    private let articlesData = SpaceCultureDetailModel.makeData()
+    private let spaceCultureDetailService = SpaceCultureDetailService()
+    
+    private var spaceCultureDetailItem: SpaceCultureDetailResponseDto?
+    private var articleItems: [Article] = []
+    private lazy var expandedArticle: [Article] = []
     private let spaceCultureDetailView = SpaceCultureDetailView()
-    private lazy var expandedArticle = makeExpandedArticleList(articlesData)
     
     override func loadView() {
         view = spaceCultureDetailView
@@ -19,8 +22,10 @@ final class SpaceCultureDetailViewController: BaseViewController {
         setNavigationBar(type: .backButton)
         setDelegate()
         setAction()
-        spaceCultureDetailView.articleView.configurePageControl(articleCount: articlesData.articleList.count)
-        spaceCultureDetailView.designLibraryHeaderView.dataBind(item: articlesData)
+        
+        Task {
+            await fetchArticles()
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -61,12 +66,41 @@ final class SpaceCultureDetailViewController: BaseViewController {
 }
 
 extension SpaceCultureDetailViewController {
-    func makeExpandedArticleList(_ data: SpaceCultureDetailModel) -> [ArticleModel]  {
-        guard let first = data.articleList.first, let last = data.articleList.last else {
-            return data.articleList
+    func fetchArticles() async {
+        do {
+            let data = try await spaceCultureDetailService.fetch()
+            spaceCultureDetailItem = data
+            
+            guard let spaceCultureDetailItem = spaceCultureDetailItem else { return }
+            
+            articleItems = spaceCultureDetailItem.articleList
+            
+            DispatchQueue.main.async { [self] in
+                self.spaceCultureDetailView.articleView.collectionView.reloadData()
+                self.spaceCultureDetailView.designLibraryHeaderView.dataBind(
+                    item: spaceCultureDetailItem
+                )
+                expandedArticle = makeExpandedArticleList(articleItems)
+                spaceCultureDetailView.articleView.configurePageControl(
+                    articleCount: articleItems.count
+                )
+                spaceCultureDetailView.designLibraryHeaderView.dataBind(
+                    item: spaceCultureDetailItem
+                )
+            }
+        } catch {
+            print("❌ 데이터 로딩 실패: \(error.localizedDescription)")
+        }
+    }
+}
+
+extension SpaceCultureDetailViewController {
+    func makeExpandedArticleList(_ data: [Article]) -> [Article]  {
+        guard let first = articleItems.first, let last = articleItems.last else {
+            return articleItems
         }
         
-        let expandedArticle = [last] + data.articleList + [first]
+        let expandedArticle = [last] + articleItems + [first]
         return expandedArticle
     }
 }
@@ -118,8 +152,8 @@ extension SpaceCultureDetailViewController: UICollectionViewDataSource {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ArticleCell.reuseIdentifier, for: indexPath) as? ArticleCell else {
             return UICollectionViewCell()
         }
-        cell.dataBind(item: expandedArticle[indexPath.row], row: indexPath.row)
-        cell.prepare(expandedArticle[indexPath.item].image, expandedArticle[indexPath.item].title)
+        cell.dataBind(item: expandedArticle[indexPath.row])
+        cell.prepare(expandedArticle[indexPath.item].imageUrl, expandedArticle[indexPath.item].title)
         return cell
     }
 }

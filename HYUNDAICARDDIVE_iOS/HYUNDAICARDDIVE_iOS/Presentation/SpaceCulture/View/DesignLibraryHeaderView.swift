@@ -132,8 +132,9 @@ final class DesignLibraryHeaderView: BaseView {
         }
     }
     
-    func dataBind(item: SpaceCultureDetailModel) {
+    func dataBind(item: SpaceCultureDetailResponseDto) {
         addressLabel.text = item.address
-        operationTimeLabel.text = item.operationTime
+        let operationTimeText = item.operationTime.replacingOccurrences(of: "연휴 ", with: "연휴\n")
+        operationTimeLabel.text = operationTimeText
     }
 }

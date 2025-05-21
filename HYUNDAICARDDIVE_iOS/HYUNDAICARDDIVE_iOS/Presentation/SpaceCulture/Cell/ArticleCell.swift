@@ -1,6 +1,8 @@
 import UIKit
 
-final class ArticleCell: BaseCollectionViewCell {
+final class ArticleCell: BaseCollectionViewCell, DataBindableCell {
+    
+    typealias DataType = Article
     
     private let articleImageView = UIImageView()
     private let articleInfoView = UIView()
@@ -82,16 +84,18 @@ final class ArticleCell: BaseCollectionViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        prepare(nil, nil)
+        prepare("", nil)
     }
     
-    func prepare(_ image: UIImage?, _ text: String?) {
-        articleImageView.image = image
+    func prepare(_ imageUrl: String, _ text: String?) {
+        let url = URL(string: imageUrl)
+        articleImageView.kf.setImage(with: url)
         titleLabel.text = text
     }
     
-    func dataBind(item: ArticleModel, row: Int) {
-        articleImageView.image = item.image
+    func dataBind(item: Article) {
+        let url = URL(string: item.imageUrl)
+        articleImageView.kf.setImage(with: url)
         titleLabel.text = item.title
         subtitleLabel.text = item.subTitle
         dateLabel.text = item.date
