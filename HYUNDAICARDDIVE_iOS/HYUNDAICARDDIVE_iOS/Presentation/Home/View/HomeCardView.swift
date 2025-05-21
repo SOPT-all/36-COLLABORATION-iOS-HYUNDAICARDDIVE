@@ -13,7 +13,7 @@ final class HomeCardView: BaseView {
 
     // MARK: - Properties
 
-    private var cards: [HomeCardModel] = []
+    private var cards: [HomeCard] = []
 
     // MARK: - UI
 
@@ -56,7 +56,7 @@ final class HomeCardView: BaseView {
 
     // MARK: - Data Binding
 
-    func setData(_ data: [HomeCardModel]) {
+    func setData(_ data: [HomeCard]) {
         cards = data
         collectionView.reloadData()
     }
