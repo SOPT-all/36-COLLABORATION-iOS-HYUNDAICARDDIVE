@@ -17,10 +17,10 @@ final class SpaceCultureDetailView: BaseView {
     }
     
     override func setUI() {
-        contentStackView.addArrangedSubviews(designLibraryHeaderView, designLibraryMenuView, designLibraryCheckInView, articleView)
-        
+        contentStackView.addArrangedSubviews(
+            designLibraryHeaderView, designLibraryMenuView, designLibraryCheckInView, articleView
+        )
         scrollView.addSubview(contentStackView)
-        
         addSubview(scrollView)
     }
     
@@ -51,7 +51,7 @@ final class SpaceCultureDetailView: BaseView {
             $0.top.equalTo(designLibraryCheckInView.snp.bottom).offset(10)
             $0.centerX.equalToSuperview()
             $0.width.equalToSuperview()
-            $0.height.equalTo(422)
+            $0.height.equalTo(490)
         }
     }
 }
